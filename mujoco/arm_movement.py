@@ -1,4 +1,4 @@
-# run_arm.py
+# pos control of a joint actuator in a 2dof arm
 import os
 
 os.environ["MUJOCO_GL"] = "glfw"  # macOS-friendly
@@ -11,11 +11,13 @@ XML_PATH = "assets/planar_arm_2dof.xml"  # or planar_arm_1dof.xml
 m = MjModel.from_xml_path(XML_PATH)
 d = MjData(m)
 
-viewer = mujoco.viewer.launch_passive(m, d)
 
+viewer = mujoco.viewer.launch_passive(m, d)
 while viewer.is_running():
-    for i in range(1000):
-        mujoco.mj_step(m, d)
-        d.ctrl[0] = 0.8 * np.sin(2 * np.pi * 0.5 * d.time)
-        d.ctrl[1] = 0.6 * np.sin(2 * np.pi * 0.8 * d.time + 1.0)
-        viewer.sync()
+    # torque = amplitude * sin(2π * freq * time)
+    amp = .5   # torque amplitude
+    freq = .01  # Hz (half a cycle per second)
+    d.ctrl[0] = amp * np.sin(2 * np.pi * freq * d.time)
+
+    mujoco.mj_step(m, d)
+    viewer.sync()
