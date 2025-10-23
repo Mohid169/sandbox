@@ -15,8 +15,8 @@ d = MjData(m)
 viewer = mujoco.viewer.launch_passive(m, d)
 while viewer.is_running():
     # torque = amplitude * sin(2π * freq * time)
-    amp = .5   # torque amplitude
-    freq = .01  # Hz (half a cycle per second)
+    amp = 0.5  # torque amplitude
+    freq = 0.01  # Hz (half a cycle per second)
     d.ctrl[0] = amp * np.sin(2 * np.pi * freq * d.time)
 
     mujoco.mj_step(m, d)
