@@ -1,4 +1,6 @@
-import os; os.environ["MUJOCO_GL"]="glfw"
+import os
+
+os.environ["MUJOCO_GL"] = "glfw"
 import mujoco, mujoco.viewer
 from mujoco import MjModel, MjData
 

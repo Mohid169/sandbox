@@ -1,4 +1,3 @@
-
 import numpy as np
 import mujoco, mujoco.viewer
 from mujoco import MjModel, MjData
