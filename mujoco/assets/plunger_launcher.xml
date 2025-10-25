@@ -1,0 +1,46 @@
+<mujoco model="torsion-launcher-fixed">
+  <option timestep="0.0002" gravity="0 0 -9.81"/>
+
+  <default>
+    <geom friction="0 0 0"/>
+  </default>
+
+  <worldbody>
+    <!-- Name your floor so contact pairs can reference it -->
+    <geom name="floor" type="plane" size="3 3 0.1" rgba="0.9 0.9 0.9 1"/>
+
+    <!-- ✅ Ball is a TOP-LEVEL body with a freejoint -->
+    <body name="ball" pos="0.28 0 0.025">
+      <freejoint/>
+      <geom name="ball_geom" type="sphere" size="0.02" density="1500" rgba="1 0.5 0.2 1"/>
+    </body>
+
+    <!-- Arm assembly (no freejoint here) -->
+    <body name="base" pos="0 0 0.1">
+      <body name="arm" pos="0 0 0">
+        <joint name="arm_hinge" type="hinge" axis="0 0 1"
+               range="-1.57 1.57" springref="0" stiffness="1200" damping="1"/>
+        <geom type="capsule" fromto="0 0 0  0.25 0 0" size="0.015" rgba="0.2 0.6 0.9 1"/>
+        <geom name="paddle" type="sphere" pos="0.28 0 0" size="0.02" rgba="0.2 0.6 0.9 1"/>
+      </body>
+    </body>
+  </worldbody>
+
+  <!-- Make ball-floor collision "bouncy" -->
+  <contact>
+    <pair geom1="ball_geom" geom2="floor"
+          friction="0 0 0"
+          solref="-15000 -0.0"
+          solimp="0.95 0.995 5e-5"/>
+  </contact>
+
+  <!-- Preload the arm only; do NOT include freejoint coords unless you know the qpos order -->
+  <keyframe>
+    <!-- qpos sets arm_hinge only (one DoF), safer to avoid ordering confusion -->
+    <key name="cocked" qpos="-0.9"/>
+  </keyframe>
+</mujoco>
+
+
+
+
