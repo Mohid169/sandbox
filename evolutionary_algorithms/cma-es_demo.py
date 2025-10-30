@@ -1,4 +1,4 @@
-'''
+"""
 Given:
   f(x)         → objective function to minimize
   n            → number of parameters (dimension of x)
@@ -54,4 +54,4 @@ Repeat until convergence:
 
 Until:
   stopping criterion met (e.g. σ < ε, f change small, or max iterations)
-'''
+"""
