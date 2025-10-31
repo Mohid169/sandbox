@@ -1,4 +1,6 @@
 """
+This is a psuedo code for CMA-ES. The code is not runnable, but it is a good reference for the algorithm. I will use this to implement the algorithm in the future.
+
 Given:
   f(x)         → objective function to minimize
   n            → number of parameters (dimension of x)
